@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app_exercise1/details.dart';
 import 'package:flutter_app_exercise1/goods.dart';
+import 'category.dart';
+import 'details.dart';
 
 class Home extends StatefulWidget{
-  static final router = '/Home';
+  static final ROUTER = '/Home';
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -13,10 +14,10 @@ class Home extends StatefulWidget{
 }
 
 class _HomeState extends State<Home>{
-  bool _search = true;
-  void _Search(){
+  bool _searchIcon = true;
+  void _search(){
     setState(() {
-      _search = ! _search;
+      _searchIcon = ! _searchIcon;
     });
   }
 
@@ -37,12 +38,12 @@ class _HomeState extends State<Home>{
           ),
           actions: [
             IconButton(
-              icon: Icon(_search ? Icons.search : Icons.close, color: Colors.black),
-              onPressed: _Search,
+              icon: Icon(_searchIcon ? Icons.search : Icons.close, color: Colors.black),
+              onPressed: _search,
             ),
           ],
         ),
-        body: _search ? home1() : home2(),
+        body: _searchIcon ? Home1() : Home2(),
         drawer: Drawer(
           child: ListView(
             children: <Widget>[
@@ -77,7 +78,7 @@ class _HomeState extends State<Home>{
                         onPressed: (){
                           Navigator.pushNamed(
                               context,
-                              Home.router
+                              Home.ROUTER
                           );
                         },
                       ),
@@ -118,213 +119,239 @@ class _HomeState extends State<Home>{
   }
 }
 
-Widget home1 (){
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: <Widget>[
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            'New Release',
-            style: TextStyle(fontSize: 30),
-          ),
-          Text(
-            'New Release',
-            style: TextStyle(fontSize: 16),
-          ),
-        ],
-      ),
-      Text(
-        '2020/2021',
-        style: TextStyle(fontSize: 14, color: Colors.grey),
-      ),
-      Stack(
-        children: <Widget>[
-          SizedBox(
-            width: double.infinity,
-            height: 180,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: image1.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.only(left: 5),
-                  child: SizedBox(
-                    width: 150,
-                    height: 180,
-                    child: Image(
-                        image: AssetImage(image1[index].image),
-                        fit: BoxFit.cover
+class Home1 extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              'New Release',
+              style: TextStyle(fontSize: 30),
+            ),
+            Text(
+              'New Release',
+              style: TextStyle(fontSize: 16),
+            ),
+          ],
+        ),
+        Text(
+          '2020/2021',
+          style: TextStyle(fontSize: 14, color: Colors.grey),
+        ),
+        Stack(
+          children: <Widget>[
+            SizedBox(
+              width: double.infinity,
+              height: 180,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: image1.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(left: 5),
+                    child: SizedBox(
+                      width: 150,
+                      height: 180,
+                      child: Image(
+                          image: AssetImage(image1[index].image),
+                          fit: BoxFit.cover
+                      ),
                     ),
-                  ),
-                );
-              },
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 140, top: 120),
-            child: Container(
-              color: Colors.white,
-              width: 120,
-              height: 42,
-              child: Row(
-                children: [
-                  Column(
-                    children: [
-                      Text('Women\'s', style: TextStyle(fontSize: 21)),
-                      Text('Kits \& jerseys', style: TextStyle(fontSize: 14, color: Colors.grey)),
-                    ],
-                  ),
-                  Icon(Icons.forward, color: Colors.grey, size: 30,)
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-      Text('Trending', style: TextStyle(fontSize: 24)),
-      SizedBox(
-        width: double.infinity,
-        height: 250,
-        child: GridView.builder(
-            itemCount: image2.length,
-            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                crossAxisSpacing: 5,
-                mainAxisSpacing: 5,
-                maxCrossAxisExtent: 250,
-                childAspectRatio: 2/3
-            ),
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: (){
-                  Navigator.pushNamed(
-                      context,
-                      Details.router,
-                      arguments: Image2(
-                          image: image2[index].image,
-                          text: image2[index].text,
-                          price: image2[index].price
-                      )
                   );
                 },
-                child: SizedBox(
-                  width: double.infinity,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 100, top: 90),
+              child: SizedBox(
+                height: 40,
+                width: 140,
+                child: RaisedButton(
+                  onPressed: (){
+                    Navigator.pushNamed(
+                        context, Category.ROUTER
+                    );
+                  },
+                  splashColor: Colors.red,
+                  color: Colors.white,
+                  child: Row(
                     children: <Widget>[
-                      Center(
-                        child: Image(
-                          image: AssetImage(image2[index].image),
-                          fit: BoxFit.cover,
-                          width: 150,
-                          height: 180,
-                        ),
+                      Column(
+                        children: <Widget>[
+                          Text(
+                            'Women\'s',
+                            style: TextStyle(fontSize: 16),
+                          ),
+                          Text(
+                            'Kits \& jerseys',
+                            style: TextStyle(fontSize: 13, color: Colors.grey),
+                          )
+                        ],
                       ),
-                      Text(image2[index].text),
-                      Text('\$${image2[index].price}', style: TextStyle(color: Colors.red))
+                      Icon(Icons.trending_flat),
                     ],
                   ),
                 ),
-              );
-            }
+              ),
+            )
+          ],
         ),
-      )
-    ],
-  );
+        Text('Trending', style: TextStyle(fontSize: 24)),
+        SizedBox(
+          width: double.infinity,
+          height: 250,
+          child: GridView.builder(
+              itemCount: image2.length,
+              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                  crossAxisSpacing: 5,
+                  mainAxisSpacing: 5,
+                  maxCrossAxisExtent: 250,
+                  childAspectRatio: 2/3
+              ),
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: (){
+                    Navigator.pushNamed(
+                        context,
+                        Details.ROUTER,
+                        arguments: Image2(
+                            image: image2[index].image,
+                            text: image2[index].text,
+                            price: image2[index].price
+                        )
+                    );
+                  },
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Center(
+                          child: Image(
+                            image: AssetImage(image2[index].image),
+                            fit: BoxFit.cover,
+                            width: 150,
+                            height: 180,
+                          ),
+                        ),
+                        Text(image2[index].text),
+                        Text('\$${image2[index].price}', style: TextStyle(color: Colors.red))
+                      ],
+                    ),
+                  ),
+                );
+              }
+          ),
+        )
+      ],
+    );
+  }
 }
-Widget home2 (){
-  return Column(
-    children: <Widget>[
-      Padding(
-        padding: const EdgeInsets.only(left: 10, right: 10),
-        child: Container(
+class Home2 extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Column(
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.only(left: 10, right: 10),
+          child: Container(
+            width: double.infinity,
+            height: 40,
+            decoration: BoxDecoration(
+                color: Colors.grey,
+                borderRadius: BorderRadius.all(Radius.circular(20))
+            ),
+            child: TextField(
+              //cursorColor: Colors.white54,
+              style: TextStyle(fontSize: 21),
+              decoration: InputDecoration(
+                contentPadding: const EdgeInsets.symmetric(vertical: 1, horizontal: 8),
+                prefixIcon: Icon(Icons.search, color: Colors.white54),
+                hintText: 'What are you looking for?',
+                focusedBorder: OutlineInputBorder(
+                  borderSide: new BorderSide(color: Colors.grey),
+                  borderRadius: new BorderRadius.circular(20),
+                ),
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: new BorderSide(color: Colors.green),
+                  borderRadius: new BorderRadius.circular(20),
+                ),
+              ),
+            ),
+          ),
+        ),
+        SizedBox(
           width: double.infinity,
           height: 40,
-          decoration: BoxDecoration(
-              color: Colors.grey,
-              borderRadius: BorderRadius.all(Radius.circular(20))
-          ),
-          child: TextField(
-            //cursorColor: Colors.white54,
-            style: TextStyle(fontSize: 21),
-            decoration: InputDecoration(
-              contentPadding: const EdgeInsets.symmetric(vertical: 1, horizontal: 8),
-              prefixIcon: Icon(Icons.search, color: Colors.white54),
-              hintText: 'What are you looking for?',
-              focusedBorder: OutlineInputBorder(
-                borderSide: new BorderSide(color: Colors.grey),
-                borderRadius: new BorderRadius.circular(20),
-              ),
-              enabledBorder: UnderlineInputBorder(
-                borderSide: new BorderSide(color: Colors.green),
-                borderRadius: new BorderRadius.circular(20),
-              ),
-            ),
+          child: TabBar(
+            indicatorColor: Colors.grey,
+            tabs: <Widget>[
+              Text('Jersey', style: TextStyle(fontSize: 18, color: Colors.black)),
+              Text('Kits', style: TextStyle(fontSize: 18, color: Colors.black))
+            ],
           ),
         ),
-      ),
-      SizedBox(
-        width: double.infinity,
-        height: 40,
-        child: TabBar(
-          indicatorColor: Colors.grey,
-          tabs: <Widget>[
-            Text('Jersey', style: TextStyle(fontSize: 18, color: Colors.black)),
-            Text('Kits', style: TextStyle(fontSize: 18, color: Colors.black))
-          ],
-        ),
-      ),
-      SizedBox(
-        width: double.infinity,
-        height: 350,
-        child: TabBarView(
-          children: <Widget>[
-            ListView.builder(
-                itemCount: jersey.length,
-                itemBuilder: (context, index) => Padding(
-                  padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
+        SizedBox(
+          width: double.infinity,
+          height: 350,
+          child: TabBarView(
+            children: <Widget>[
+              ListView.builder(
+                  itemCount: jersey.length,
+                  itemBuilder: (context, index) => Padding(
+                    padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
+                    child: Container(
+                      width: double.infinity,
+                      height: 40,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          jersey[index].icon,
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: Text(jersey[index].text, style: TextStyle(fontSize: 18)),
-                          )
+                          Row(
+                            children: [
+                              jersey[index].icon,
+                              Padding(
+                                padding: const EdgeInsets.only(left: 10),
+                                child: Text(jersey[index].text, style: TextStyle(fontSize: 18)),
+                              )
+                            ],
+                          ),
+                          Text('${jersey[index].total}>', style: TextStyle(fontSize: 16))
                         ],
                       ),
-                      Text('${jersey[index].total}>', style: TextStyle(fontSize: 16))
-                    ],
-                  ),
-                )
-            ),
-            ListView.builder(
-                itemCount: kits.length,
-                itemBuilder: (context, index) => Padding(
-                  padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          kits[index].icon,
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: Text(kits[index].text, style: TextStyle(fontSize: 18)),
-                          )
-                        ],
-                      ),
-                      Text('${kits[index].total}>', style: TextStyle(fontSize: 16))
-                    ],
-                  ),
-                )
-            ),
-          ],
+                    )
+                  )
+              ),
+              ListView.builder(
+                  itemCount: kits.length,
+                  itemBuilder: (context, index) => Padding(
+                    padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            kits[index].icon,
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10),
+                              child: Text(kits[index].text, style: TextStyle(fontSize: 18)),
+                            )
+                          ],
+                        ),
+                        Text('${kits[index].total}>', style: TextStyle(fontSize: 16))
+                      ],
+                    ),
+                  )
+              ),
+            ],
+          ),
         ),
-      ),
-    ],
-  );
+      ],
+    );
+  }
 }

@@ -4,7 +4,7 @@ import 'package:flutter_app_exercise1/end.dart';
 import 'goods.dart';
 
 class CheckOut extends StatefulWidget{
-  static final router = '/CheckOut';
+  static final ROUTER = '/CheckOut';
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -22,21 +22,21 @@ class _CheckOutState extends State<CheckOut>{
       style: TextStyle(fontSize: 18),
     );
   }
-  void _CashOnDelivery (){
+  void _cashOnDelivery (){
     setState(() {
       cashOnDelivery = true;
       applePay = false;
       creditCard = false;
     });
   }
-  void _ApplePay(){
+  void _applePay(){
     setState(() {
       cashOnDelivery = false;
       applePay = true;
       creditCard = false;
     });
   }
-  void _CreditCard (){
+  void _creditCard (){
     setState(() {
       cashOnDelivery = false;
       applePay = false;
@@ -97,7 +97,7 @@ class _CheckOutState extends State<CheckOut>{
                             ),
                             IconButton(
                               icon: Icon(cashOnDelivery ? Icons.check_circle : Icons.panorama_fish_eye),
-                              onPressed: _CashOnDelivery,
+                              onPressed: _cashOnDelivery,
                             )
                           ],
                         ),
@@ -120,7 +120,7 @@ class _CheckOutState extends State<CheckOut>{
                             ),
                             IconButton(
                               icon: Icon(applePay ? Icons.check_circle : Icons.panorama_fish_eye),
-                              onPressed: _ApplePay,
+                              onPressed: _applePay,
                             )
                           ],
                         ),
@@ -143,7 +143,7 @@ class _CheckOutState extends State<CheckOut>{
                             ),
                             IconButton(
                               icon: Icon(creditCard ? Icons.check_circle : Icons.panorama_fish_eye),
-                              onPressed: _CreditCard,
+                              onPressed: _creditCard,
                             )
                           ],
                         ),
@@ -227,7 +227,7 @@ class _CheckOutState extends State<CheckOut>{
                             onPressed: (){
                               Navigator.pushNamed(
                                   context,
-                                  End.router
+                                  End.ROUTER
                               );
                             },
                             child: Text('check out', style: TextStyle(color: Colors.white)),

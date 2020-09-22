@@ -3,7 +3,7 @@ import 'package:flutter_app_exercise1/cart.dart';
 import 'package:flutter_app_exercise1/goods.dart';
 
 class Details extends StatefulWidget{
-  static final router = '/Details';
+  static final ROUTER = '/Details';
   String image1;
   String text1;
   double price1;
@@ -21,7 +21,7 @@ class _DetailsState extends State<Details>{
   double price1;
   _DetailsState({this.image1, this.text1, this.price1});
   bool _like = true;
-  void _ToggleLike (){
+  void _toggleLike (){
     setState(() {
       _like = ! _like;
     });
@@ -74,7 +74,7 @@ class _DetailsState extends State<Details>{
                           color: Colors.red,
                           size: 30,
                         ),
-                        onPressed: _ToggleLike,
+                        onPressed: _toggleLike,
                       ),
                     ),
                   )
@@ -112,7 +112,7 @@ class _DetailsState extends State<Details>{
                       onPressed: (){
                         Navigator.pushNamed(
                             context,
-                            Cart.router,
+                            Cart.ROUTER,
                             arguments: Image2(
                               image: args.image,
                               text: args.text,

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_exercise1/checkout.dart';
-import 'package:flutter_app_exercise1/home.dart';
 import 'goods.dart';
 import 'MyApp.dart';
 
 class Cart extends StatelessWidget{
-  static final router = '/Cart';
+  static final ROUTER = '/Cart';
   @override
   Widget build(BuildContext context) {
     final Image2 args = ModalRoute.of(context).settings.arguments;
@@ -22,7 +21,7 @@ class Cart extends StatelessWidget{
               onPressed: (){
                 Navigator.pushNamed(
                     context,
-                    MyApp.router
+                    MyApp.ROUTER
                 );
               },
             )
@@ -107,7 +106,7 @@ class Cart extends StatelessWidget{
                         onPressed: (){
                           Navigator.pushNamed(
                               context,
-                              CheckOut.router,
+                              CheckOut.ROUTER,
                               arguments: Image2(price: args.price)
                           );
                         },

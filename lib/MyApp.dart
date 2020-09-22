@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_exercise1/cart.dart';
+import 'package:flutter_app_exercise1/category.dart';
 import 'package:flutter_app_exercise1/checkout.dart';
 import 'package:flutter_app_exercise1/details.dart';
 import 'package:flutter_app_exercise1/end.dart';
@@ -7,13 +8,13 @@ import 'package:flutter_app_exercise1/goods.dart';
 import 'home.dart';
 
 class MyApp extends StatelessWidget{
-  static final router = '/MyApp';
+  static final ROUTER = '/MyApp';
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return MaterialApp(
       onGenerateRoute: (settings){
-        if (settings.name == Details.router) {
+        if (settings.name == Details.ROUTER) {
           final Image2 args = settings.arguments;
           return MaterialPageRoute(
             builder: (context) => Details(
@@ -27,12 +28,13 @@ class MyApp extends StatelessWidget{
         return null;
       },
       routes: {
-        Home.router: (context) => Home(),
-        Details.router: (context) => Details(),
-        Cart.router: (context) => Cart(),
-        CheckOut.router: (context) => CheckOut(),
-        MyApp.router: (context) => MyApp(),
-        End.router: (context) => End()
+        Home.ROUTER: (context) => Home(),
+        Details.ROUTER: (context) => Details(),
+        Cart.ROUTER: (context) => Cart(),
+        CheckOut.ROUTER: (context) => CheckOut(),
+        MyApp.ROUTER: (context) => MyApp(),
+        End.ROUTER: (context) => End(),
+        Category.ROUTER: (context) => Category()
       },
       home: DefaultTabController(
         length: 2,

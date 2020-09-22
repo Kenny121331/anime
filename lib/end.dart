@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class End extends StatelessWidget{
-  static final router = '/End';
+  static final ROUTER = '/End';
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
